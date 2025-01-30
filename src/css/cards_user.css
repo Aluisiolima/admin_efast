@@ -1,9 +1,3 @@
-.users_div{
-    display: grid;
-    height: 100%;
-    width: 100%;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-}
 .cards_user{
     margin: 0 auto;
     margin-top: 10px;
