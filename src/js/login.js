@@ -5,8 +5,6 @@ async function login(button) {
         event.preventDefault();
     });
 
-    render("components/animacao.html", [], "container");
-
     const formData = new FormData(form);
 
     const dados = {};
@@ -18,5 +16,12 @@ async function login(button) {
 
     if (!result.error) {
         sessionStorage.setItem('token', result.data.token);
+        await render("components/animacao.html", null, "container");
+
+        setTimeout(async () => {
+            document.getElementById("container").innerHTML = "";
+            await render("components/container-desktop.html", null, "container");
+            await getUsers();
+        }, 2500);
     }
 }
