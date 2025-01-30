@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin</title>
+    <link rel="stylesheet" href="./src/css/reset.css">
+    <link rel="stylesheet" href="./src/css/login.css">
+    <link rel="stylesheet" href="./src/css/animacao.css">
+</head>
+<body>
+    <div class="container" id="container">
+        <form class="form" id="form">
+            <span class="input-span">
+              <label for="nome" class="label">nome</label>
+              <input type="text" name="nome" id="nome" required/>
+            </span>
+            <span class="input-span">
+              <label for="senha" class="label">senha</label>
+              <input type="password" name="senha" id="senha" required/>
+            </span>
+            <span class="input-span">
+                <label for="codigo" class="label">codigo</label>
+                <input type="text" name="codigo" id="codigo" required/>
+            </span>
+            <span class="input-span">
+                <label for="cargo" class="label">cargo</label>
+                <input type="text" name="cargo" id="cargo" required/>
+            </span>
+            <span class="input-span">
+                <label for="empresa" class="label">empresa</label>
+                <select name="id_empresa" id="empresas" onfocus="pegarEmpresa()" required>
+                    
+                </select>
+            </span>
+
+            <button class="animated-button" onclick="login(this)">
+                <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                  ></path>
+                </svg>
+                <span class="text">SING IN </span>
+                <span class="circle"></span>
+                <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                  ></path>
+                </svg>
+            </button>
+        </form>
+    </div>
+</body>
+<script src="./src/js/main.js" defer></script>
+<script src="./src/js/login.js" defer></script>
+</html>
