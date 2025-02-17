@@ -1,19 +1,19 @@
-.cards_user{
-    margin: 0 auto;
-    margin-top: 10px;
-    height: 12em;
-    width: 10em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background-color: var(--bg-dark);
-    color: var(--bg-light);
-    border-radius: 15px;
+.cards_user {
+  margin: 0 auto;
+  margin-top: 10px;
+  height: 12em;
+  width: 10em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: var(--bg-dark);
+  color: var(--bg-light);
+  border-radius: 15px;
 }
-  
+
 .img_user {
-    height: 50%;
+  height: 50%;
   border-radius: 10px;
   margin: 10px;
 }
