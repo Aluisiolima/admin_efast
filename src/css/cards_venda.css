@@ -1,0 +1,25 @@
+.cards_venda {
+  height: 4em;
+  width: 90%;
+  background-color: var(--bg-dark);
+  color: var(--bg-light);
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 0 auto;
+  margin-top: 0px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+.card_status {
+  height: 35px;
+  width: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  background: var(--bg-light);
+  border-radius: 5px;
+  font-size: larger;
+  font-weight: bolder;
+}

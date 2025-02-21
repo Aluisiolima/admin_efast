@@ -9,8 +9,11 @@
   background: var(--bg-dark);
 }
 
-
-.e, .f, .a, .s, .t{
+.e,
+.f,
+.a,
+.s,
+.t {
   position: relative;
   width: 80%;
   max-width: 100px;
@@ -31,7 +34,7 @@
   background-color: black;
   transform-origin: bottom left;
   transform: scaleY(0); /* Inicialmente oculta */
-  animation: fillBar .4s ease-in forwards .8s; /* Preenchimento com delay */
+  animation: fillBar 0.4s ease-in forwards 0.8s; /* Preenchimento com delay */
 }
 
 .bar.horizontal {
@@ -42,29 +45,30 @@
   left: 0px;
   border-radius: 5px;
   transform: scaleX(0); /* Inicialmente oculta */
-  animation: fillBarHorizontal .6s ease-in forwards 1s; /* Preenchimento com delay */
+  animation: fillBarHorizontal 0.6s ease-in forwards 1s; /* Preenchimento com delay */
 }
 
 .f {
   height: 200px;
 }
 
-.f > .bar.vertical{
+.f > .bar.vertical {
   height: 180px;
 }
 
-.f > .bar.horizontal, .f > .bar.vertical{
+.f > .bar.horizontal,
+.f > .bar.vertical {
   background-color: red;
 }
 
 .horizontal.primeiro {
-  top: 0%
+  top: 0%;
 }
 .horizontal.segunda {
-  top: 50%
+  top: 50%;
 }
 .horizontal.terceiro {
-  top: 90%
+  top: 90%;
 }
 
 .vertical.primeiro {
@@ -78,24 +82,23 @@
 }
 
 .s > .vertical {
-  animation: fillBarS .6s ease-in forwards 1s;
+  animation: fillBarS 0.6s ease-in forwards 1s;
 }
 .vertical.cima {
   left: 0%;
-  top: -45%
+  top: -45%;
 }
 .vertical.embaixo {
   left: 85%;
-  top: 0%
+  top: 0%;
 }
-
 
 @keyframes fillBarS {
   from {
     transform: scaleY(0);
   }
   to {
-    transform: scaleY(.5);
+    transform: scaleY(0.5);
   }
 }
 
