@@ -15,6 +15,12 @@ async function getFiles() {
   files.data.forEach((data) => {
     render("components/card-arquivo.html", data, "cards");
   });
+
+  document.getElementById("options-cards").innerHTML += `
+            <div class="btn_insert">
+                <i class="bi bi-plus-lg"></i>
+            </div>
+        `;
 }
 
 function fileNotFound(file) {
