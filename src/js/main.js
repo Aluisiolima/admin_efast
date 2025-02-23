@@ -1,5 +1,5 @@
-// const link_api = "http://localhost/efast/Efast_api";
-const link_api = "https://efastmenu.com/api";
+const link_api = "http://localhost/efast/Efast_api";
+// const link_api = "https://efastmenu.com/api";
 
 /**
  * Funcao responsavel por requisicoes a api
@@ -81,6 +81,37 @@ function parseJWT(token) {
       .join("")
   );
   return JSON.parse(jsonPayload);
+}
+
+function collectionDatesForm(form) {
+  const Form = form;
+  const inputs = Form.querySelectorAll("input[required]"); 
+  let okRequired = true;
+
+  inputs.forEach(input => {
+    if (!input.value.trim()) { 
+      okRequired = false;
+      input.classList.add("error"); 
+      input.addEventListener("animationend", () => {
+        input.classList.remove("error");
+      });
+    } else {
+      input.classList.remove("error");
+    }
+  });
+
+  if (!okRequired) {
+    return;
+  }
+
+  const formData = new FormData(Form);
+
+  const dados = {};
+  formData.forEach((value, key) => {
+    dados[key] = value;
+  });
+
+  return dados;
 }
 
 document.addEventListener("DOMContentLoaded", pegarEmpresa);

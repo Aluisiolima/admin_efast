@@ -19,7 +19,7 @@ async function getProdutos() {
     });
 
     document.getElementById("options-cards").innerHTML += `
-            <div class="btn_insert">
+            <div class="btn_insert" onclick="openFormNewProduct()">
                 <i class="bi bi-plus-lg"></i>
             </div>
         `;
@@ -35,4 +35,20 @@ function NotFoundImg(tipo, img) {
   };
 
   img.src = tiposImgs[tipo] || tiposImgs.default;
+}
+
+async function newProduct(product) {
+  const newProduct = await fetchApi(product,"POST", `${link_api}/inseriProdutos`);
+
+  if (newProduct.error) {
+    console.error(newProduct.message);
+    return;
+  }
+
+  console.log(newProduct.data);
+}
+
+function openFormNewProduct(){
+  document.getElementById("other").innerHTML = "";
+  render("components/new-product.html", [], "other");
 }
