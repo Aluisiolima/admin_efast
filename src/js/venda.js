@@ -58,7 +58,3 @@ async function updateStatus(id) {
 
   await getSale(id)
 }
-
-function exit() {
-  document.getElementById("other").innerHTML = "";
-}

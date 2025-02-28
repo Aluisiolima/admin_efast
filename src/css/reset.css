@@ -39,3 +39,16 @@
   width: 100%;
   grid-template-columns: 1fr 1fr;
 }
+
+.error {
+  border: 2px solid red;
+  animation: alert linear 1s;
+}
+
+@keyframes alert {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+}
