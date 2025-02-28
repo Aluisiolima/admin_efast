@@ -84,14 +84,20 @@ function parseJWT(token) {
 }
 
 function collectionDatesForm(form) {
+  document
+    .getElementById("meuForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+    });
+
   const Form = form;
-  const inputs = Form.querySelectorAll("input[required]"); 
+  const inputs = Form.querySelectorAll("input[required]");
   let okRequired = true;
 
-  inputs.forEach(input => {
-    if (!input.value.trim()) { 
+  inputs.forEach((input) => {
+    if (!input.value.trim()) {
       okRequired = false;
-      input.classList.add("error"); 
+      input.classList.add("error");
       input.addEventListener("animationend", () => {
         input.classList.remove("error");
       });
@@ -111,7 +117,14 @@ function collectionDatesForm(form) {
     dados[key] = value;
   });
 
+  dados["id_img"] = 1;
+
   return dados;
+}
+
+
+function exit() {
+  document.getElementById("other").innerHTML = "";
 }
 
 document.addEventListener("DOMContentLoaded", pegarEmpresa);
