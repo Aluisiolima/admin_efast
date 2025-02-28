@@ -76,6 +76,23 @@ async function updateProduct(form_product) {
   getProdutos();
 }
 
+async function removeProduct(id){
+  document
+    .getElementById("meuForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+    });
+  const remove = await fetchApi({"id": id}, "DELETE", `${link_api}/desativaProdutos`);
+
+  if (remove.error) {
+    console.error(remove.message);
+    return;
+  }
+
+  exit();
+  getProdutos();
+}
+
 async function openFormNewProduct(){
   let options = "";
   const tokenDecode = parseJWT(sessionStorage.getItem("token"));
