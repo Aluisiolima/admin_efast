@@ -2,20 +2,20 @@
     <h1 class="title">
         Efast Menu <span class="line"></span>
     </h1>
-    <div class="perfil">
-        <img src="" alt="img perfil">
+    <div class="perfil" onclick="getUsers()">
+        <img src="./img/image.png" alt="img perfil">
     </div>
 </nav>
-<div class="body_container">
-    <div class="menu_container">
+<div class="container_body">
+    <div class="container_menu">
         <div class="menu">
-            <div class="options">Produtos</div>
-            <div class="options">Vendas</div>
-            <div class="options">Arquivos</div>
-            <div class="options">Pedidos</div>
+            <div class="options" onclick="getProdutos()">Produtos</div>
+            <div class="options" onclick="getVendas()">Vendas</div>
+            <div class="options" onclick="getFiles()">Arquivos</div>
         </div>
     </div>
     <div class="cards" id="options-cards">
 
     </div>
 </div>
+<div class="other" id="other"></div>

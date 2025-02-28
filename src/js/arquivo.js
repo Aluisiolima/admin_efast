@@ -23,3 +23,9 @@ async function getFiles() {
         `;
 }
 
+<<<<<<< HEAD
+=======
+function fileNotFound(file) {
+  file.src = "/img/images.png";
+}
+>>>>>>> ae1f53f605ccc301f5f73d3c1388ffece4fb593e

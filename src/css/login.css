@@ -17,7 +17,8 @@
   gap: 0.5rem;
 }
 
-.form input {
+.form input,
+.form select {
   border-radius: 0.5rem;
   padding: 1rem 0.75rem;
   width: 100%;
@@ -38,7 +39,6 @@
   color: var(--bg-light);
   font-weight: 600;
 }
-
 
 .animated-button {
   position: relative;
