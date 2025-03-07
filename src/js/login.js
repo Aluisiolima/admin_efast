@@ -20,8 +20,19 @@ async function login(button) {
 
     setTimeout(async () => {
       document.getElementById("container").innerHTML = "";
-      await render("components/container-desktop.html", null, "container");
+      await homePage();
       await getUsers();
     }, 2500);
   }
+}
+
+async function homePage() {
+  const isMobile = window.matchMedia("(max-width:768px)").matches;
+
+  if (isMobile) {
+    await render("components/container-mobile.html", null, "container");
+    return;
+  }
+
+  await render("components/container-desktop.html", null, "container");
 }

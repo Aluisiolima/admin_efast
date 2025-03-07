@@ -1,0 +1,24 @@
+<nav class="container_nav">
+    <h1 class="title">
+        Efast Menu <span class="line"></span>
+    </h1>
+    <i class="bi bi-list" onclick="openMenu()"></i>
+   
+</nav>
+<div class="container_mobile">
+    <div class="menu_container" id="menu">
+        <div class="menu_mobile">
+            <div class="options" onclick="getProdutos()">Produtos</div>
+            <div class="options" onclick="getVendas()">Vendas</div>
+            <div class="options" onclick="getFiles()">Arquivos</div>
+            <div class="options" onclick="getUsers()">Usuarios</div>
+        </div>
+    </div>
+    <div class="container_body_mobile" onclick="closeMenu()">
+        
+        <div class="cards" id="options-cards">
+    
+        </div>
+    </div>
+</div>
+<div class="other" id="other"></div>

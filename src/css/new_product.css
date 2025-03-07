@@ -75,3 +75,10 @@
     color: var(--bg-light);
     font-weight: bold;
 }
+
+
+@media (max-width: 768px) {
+  .details {
+    width: 80%;
+  }
+}
