@@ -56,5 +56,6 @@ async function updateStatus(id) {
     console.error(updateStatus.message)
   }
 
-  await getSale(id)
+  await getSale(id);
+  await exit();
 }
