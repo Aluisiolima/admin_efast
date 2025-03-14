@@ -8,18 +8,18 @@
   background: #2c3e50;
 }
 .menu_container {
-  background: var(--bg-dark);
   z-index: 999;
   display: none;
   position: fixed;
   right: 0;
   height: 100%;
-  width: 50%;
-  max-width: 300px;
+  width: 100%;
+  justify-content: end;
   transition: all 0.3s ease-out;
 }
 
 .menu_mobile {
+  background: var(--bg-dark);
   height: 100%;
-  width: 300px;
+  width: 50%;
 }

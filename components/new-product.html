@@ -20,10 +20,19 @@
     />
     <label for="desconto">desconto</label>
   </div>
-  <select class="select_date" name="tipo">
+  <select class="select_date" name="tipo" id="typePrimary" onchange="checkOptions()">
     <option value="">Selecione um tipo</option>
     {{options}}
   </select>
+  <div class="input-field" style="display: none;" id="otherType">
+    <input
+      type="text"
+      id="tipoOther"
+      autocomplete="off"
+      onchange="passValue()"
+    />
+    <label for="">Tipo</label>
+  </div>
   <div class="actions_btn">
     <button class="btn_success" onclick="newProduct(this)">Ok</button>
   </div>

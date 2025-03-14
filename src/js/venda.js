@@ -55,7 +55,6 @@ async function updateStatus(id) {
   if(updateStatus.error){
     console.error(updateStatus.message)
   }
-
-  await getSale(id);
+  await getVendas();
   await exit();
 }
