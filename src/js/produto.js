@@ -55,6 +55,7 @@ function NotFoundImg(tipo, img) {
 async function newProduct(form_product) {
   const form = form_product.form;
   const productDate = collectionDatesForm(form);
+
   const newProduct = await fetchApi(productDate, "POST", `${link_api}/inseriProdutos`);
 
   if (newProduct.error) {
@@ -107,6 +108,8 @@ async function openFormNewProduct(){
     options += `<option value="${e.tipo}">${e.tipo}</option>`;
   });
 
+  options += `<option value="other" id="typeOther"> Outro </option>`;
+
   document.getElementById("other").innerHTML = "";
   render("components/new-product.html", {"options":options}, "other");
 }
@@ -131,9 +134,30 @@ async function openFormUpdateProduct(id){
     options += `<option value="${e.tipo}">${e.tipo}</option>`;
   });
 
+  options += `<option value="other" id="typeOther"> Outro </option>`;
+
   document.getElementById("other").innerHTML = "";
   product.data.forEach((data) => {
     data["options"] = options;
     render("components/update-product.html", data, "other");
   });
+}
+
+function checkOptions() {
+  const optionsValue = document.getElementById("typePrimary").value;
+
+  if( optionsValue === "other") {
+    document.getElementById("otherType").style.display = "block";
+    document.getElementById("tipoOther").setAttribute("required", "");
+  }else{
+    document.getElementById("otherType").style.display = "none";
+    document.getElementById("tipoOther").removeAttribute("required");
+  }
+}
+
+function passValue() {
+  const select = document.getElementById("typeOther");
+  const optionsValue = document.getElementById("tipoOther").value;
+
+  select.value = optionsValue;
 }
