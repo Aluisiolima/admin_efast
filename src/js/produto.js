@@ -7,34 +7,36 @@ async function getProdutos() {
     `${link_api}/pegarProdutos/${tokenDecode.id_empresa}`
   );
 
-  if (!produtos.error && produtos.data.length !== 0) {
-    document.getElementById("options-cards").innerHTML = "";
-    const div = document.createElement("div");
-    div.id = "cards";
-    div.className = "_div";
+  if (produtos.error) {
+    console.log(produtos.message);
+    return;
+  }
+  document.getElementById("options-cards").innerHTML = "";
+  const div = document.createElement("div");
+  div.id = "cards";
+  div.className = "_div";
 
-    if (window.matchMedia("(max-width:768px)").matches) {
-      div.className = "_div_mobile";
-    }
+  if (window.matchMedia("(max-width:768px)").matches) {
+    div.className = "_div_mobile";
+  }
 
-    document.getElementById("options-cards").appendChild(div);
+  document.getElementById("options-cards").appendChild(div);
 
-    produtos.data.forEach((data) => {
-      render("components/cards-produto.html", data, "cards");
-    });
+  produtos.data.forEach((data) => {
+    render("components/cards-produto.html", data, "cards");
+  });
 
-    document.getElementById("options-cards").innerHTML += `
+  document.getElementById("options-cards").innerHTML += `
             <div class="btn_insert" onclick="openFormNewProduct()">
                 <i class="bi bi-plus-lg"></i>
             </div>
         `;
-  }
 }
 
 async function getTypesProducts(id) {
   const types = await fetchApi([], "POST", `${link_api}/getTypes/${id}`);
 
-  if(types.error){
+  if (types.error) {
     console.error(types.message);
     return;
   }
@@ -56,7 +58,11 @@ async function newProduct(form_product) {
   const form = form_product.form;
   const productDate = collectionDatesForm(form);
 
-  const newProduct = await fetchApi(productDate, "POST", `${link_api}/inseriProdutos`);
+  const newProduct = await fetchApi(
+    productDate,
+    "POST",
+    `${link_api}/inseriProdutos`
+  );
 
   if (newProduct.error) {
     console.error(newProduct.message);
@@ -71,7 +77,11 @@ async function updateProduct(form_product) {
   const form = form_product.form;
   const productDate = collectionDatesForm(form);
 
-  const newProduct = await fetchApi(productDate, "PUT", `${link_api}/updateProdutos`);
+  const newProduct = await fetchApi(
+    productDate,
+    "PUT",
+    `${link_api}/updateProdutos`
+  );
 
   if (newProduct.error) {
     console.error(newProduct.message);
@@ -82,13 +92,17 @@ async function updateProduct(form_product) {
   getProdutos();
 }
 
-async function removeProduct(id){
+async function removeProduct(id) {
   document
     .getElementById("meuForm")
     .addEventListener("submit", function (event) {
       event.preventDefault();
     });
-  const remove = await fetchApi({"id": id}, "DELETE", `${link_api}/desativaProdutos`);
+  const remove = await fetchApi(
+    { id: id },
+    "DELETE",
+    `${link_api}/desativaProdutos`
+  );
 
   if (remove.error) {
     console.error(remove.message);
@@ -99,22 +113,22 @@ async function removeProduct(id){
   getProdutos();
 }
 
-async function openFormNewProduct(){
+async function openFormNewProduct() {
   let options = "";
   const tokenDecode = parseJWT(sessionStorage.getItem("token"));
   const types = await getTypesProducts(tokenDecode.id_empresa);
 
-  types.forEach(e => {
+  types.forEach((e) => {
     options += `<option value="${e.tipo}">${e.tipo}</option>`;
   });
 
   options += `<option value="other" id="typeOther"> Outro </option>`;
 
   document.getElementById("other").innerHTML = "";
-  render("components/new-product.html", {"options":options}, "other");
+  render("components/new-product.html", { options: options }, "other");
 }
 
-async function openFormUpdateProduct(id){
+async function openFormUpdateProduct(id) {
   const product = await fetchApi(
     null,
     "GET",
@@ -130,7 +144,7 @@ async function openFormUpdateProduct(id){
   const tokenDecode = parseJWT(sessionStorage.getItem("token"));
   const types = await getTypesProducts(tokenDecode.id_empresa);
 
-  types.forEach(e => {
+  types.forEach((e) => {
     options += `<option value="${e.tipo}">${e.tipo}</option>`;
   });
 
@@ -146,10 +160,10 @@ async function openFormUpdateProduct(id){
 function checkOptions() {
   const optionsValue = document.getElementById("typePrimary").value;
 
-  if( optionsValue === "other") {
+  if (optionsValue === "other") {
     document.getElementById("otherType").style.display = "block";
     document.getElementById("tipoOther").setAttribute("required", "");
-  }else{
+  } else {
     document.getElementById("otherType").style.display = "none";
     document.getElementById("tipoOther").removeAttribute("required");
   }
