@@ -45,13 +45,20 @@ async function getTypesProducts(id) {
 
 function NotFoundImg(tipo, img) {
   const tiposImgs = {
-    pizza: "./img/Pizza_padrao.svg",
-    hamburguer: "./img/Hambúrguer_padrao.svg",
-    bebida: "./img/Bebida_padrao.svg",
-    default: "./img/Pizza_padrao.svg",
-  };
+    pizza: "./img/default/Pizza_padrao.svg",
+    hamburguer: "./img/default/Hambúrguer_padrao.svg",
+    hambuguer: "./img/default/Hambúrguer_padrao.svg",
+    bebida: "./img/default/Bebida_padrao.svg",
+    bebidas: "./img/default/Bebida_padrao.svg",
+    adicionais: "./img/default/adicionais.jpeg",
+    artesanal: "./img/default/artersanais.png",
+    porção: "./img/default/batatinha.webp",
+    sucos: "./img/default/sucos.webp",
+    default: "./img/default/Pizza_padrao.svg",
+  }
+  const tipoSemEspaco = tipo.replace(/\s+/g, "");
 
-  img.src = tiposImgs[tipo] || tiposImgs.default;
+  img.src = tiposImgs[tipoSemEspaco] || tiposImgs.default;
 }
 
 async function newProduct(form_product) {
