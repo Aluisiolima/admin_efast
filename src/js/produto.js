@@ -45,16 +45,16 @@ async function getTypesProducts(id) {
 
 function NotFoundImg(tipo, img) {
   const tiposImgs = {
-    pizza: "./img/default/Pizza_padrao.svg",
-    hamburguer: "./img/default/Hambúrguer_padrao.svg",
-    hambuguer: "./img/default/Hambúrguer_padrao.svg",
-    bebida: "./img/default/Bebida_padrao.svg",
-    bebidas: "./img/default/Bebida_padrao.svg",
-    adicionais: "./img/default/adicionais.jpeg",
-    artesanal: "./img/default/artersanais.png",
-    porção: "./img/default/batatinha.webp",
-    sucos: "./img/default/sucos.webp",
-    default: "./img/default/Pizza_padrao.svg",
+    pizza: "./img/Pizza_padrao.svg",
+    hamburguer: "./img/Hambúrguer_padrao.svg",
+    hambuguer: "./img/Hambúrguer_padrao.svg",
+    bebida: "./img/Bebida_padrao.svg",
+    bebidas: "./img/Bebida_padrao.svg",
+    adicionais: "./img/adicionais.jpeg",
+    artesanal: "./img/artersanais.png",
+    porção: "./img/batatinha.webp",
+    sucos: "./img/sucos.webp",
+    default : "./img/Pizza_padrao.svg",
   }
   const tipoSemEspaco = tipo.replace(/\s+/g, "");
 
