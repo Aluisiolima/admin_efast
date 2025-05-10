@@ -1,14 +1,49 @@
+import React, { useEffect, useState } from "react";
 import "./Login.css";
+import { Auth } from "../../utils/Auth";
+import { LoginType } from "../../types/Login.type";
+import { Empresa } from "../../types/Empresa.type";
+import { fetchApi } from "../../utils/req";
 
 export const Login: React.FC<{ isLogin: (is: boolean) => void }> = ({
   isLogin,
 }) => {
-  const login = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    isLogin(true);
-    // lógica de login aqui
-    console.log("Login iniciado...");
+  const [empresas, setEmpresas] = useState<Empresa[] | null>(null);
+  const [loginData, setLoginData] = useState<LoginType>({
+    nome: "",
+    senha: "",
+    codigo: "",
+    cargo: "",
+    id_empresa: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { id, value } = e.target;
+    setLoginData((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
   };
+
+  const login = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    await Auth(loginData, isLogin);
+  };
+
+  useEffect(() => {
+    const getEmpresas = async () => {
+      try {
+        const result = await fetchApi<Empresa[]>(null, "GET", "/empresa");
+        setEmpresas(result);
+      } catch (error) {
+        console.error(error);
+        setEmpresas(null);
+      }
+    };
+    getEmpresas();
+  }, []);
 
   return (
     <form className="form" id="form">
@@ -16,35 +51,68 @@ export const Login: React.FC<{ isLogin: (is: boolean) => void }> = ({
         <label htmlFor="nome" className="label">
           nome
         </label>
-        <input type="text" name="nome" id="nome" required />
+        <input
+          type="text"
+          id="nome"
+          required
+          value={loginData.nome}
+          onChange={(e) => handleChange(e)}
+        />
       </span>
       <span className="input-span">
         <label htmlFor="senha" className="label">
           senha
         </label>
-        <input type="password" name="senha" id="senha" required />
+        <input
+          type="password"
+          id="senha"
+          required
+          value={loginData.senha}
+          onChange={(e) => handleChange(e)}
+        />
       </span>
       <span className="input-span">
         <label htmlFor="codigo" className="label">
           codigo
         </label>
-        <input type="text" name="codigo" id="codigo" required />
+        <input
+          type="text"
+          id="codigo"
+          required
+          value={loginData.codigo}
+          onChange={(e) => handleChange(e)}
+        />
       </span>
       <span className="input-span">
         <label htmlFor="cargo" className="label">
           cargo
         </label>
-        <input type="text" name="cargo" id="cargo" required />
+        <input
+          type="text"
+          id="cargo"
+          required
+          value={loginData.cargo}
+          onChange={(e) => handleChange(e)}
+        />
       </span>
       <span className="input-span">
         <label htmlFor="empresas" className="label">
           empresa
         </label>
-        <select name="id_empresa" id="empresas" required defaultValue="">
+        <select
+          id="id_empresa"
+          required
+          value={loginData.id_empresa}
+          onChange={(e) => handleChange(e)}
+        >
           <option value="" disabled>
             Selecione uma opção
           </option>
-          {/* opções dinâmicas aqui, se houver */}
+          {empresas?.map((empresa) => (
+            <option key={empresa.id_empresa} value={empresa.id_empresa}>
+              {empresa.nome_empresa}
+            </option>
+          ))}
         </select>
       </span>
 
