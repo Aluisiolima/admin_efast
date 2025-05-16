@@ -1,0 +1,36 @@
+name: Deploy React App to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v3
+
+      - name: Instalar dependências com Yarn
+        run: yarn install --frozen-lockfile
+
+      - name: Criar .env com variáveis
+        run: |
+          echo "REACT_APP_LINK_API=${{ secrets.URL_API }}" >> .env
+
+      - name: Tests de aplicação
+        run: yarn test --watchAll=false 
+        
+      - name: Build do projeto
+        run: yarn build
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: build/
+          server-dir: /admin/

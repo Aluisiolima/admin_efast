@@ -1,0 +1,83 @@
+.input-field {
+  position: relative;
+  width: 80%;
+  margin-top: 10px;
+}
+
+.input-field > label {
+  position: absolute;
+  color: grey;
+  pointer-events: none;
+  background-color: transparent;
+  left: 15px;
+  transform: translateY(0.6rem);
+  transition: all 0.3s ease;
+}
+
+.input-field > input {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: solid 2px var(--bg-light);
+  letter-spacing: 1px;
+  width: 100%;
+}
+
+.input-field > input:focus,
+.input-field > input:valid {
+  outline: none;
+  border: solid 1px var(--bg-light);
+}
+
+.input-field > input:focus ~ label,
+.input-field > input:valid ~ label {
+  transform: translateY(-51%) translateX(-10px) scale(0.8);
+  background-color: #fff;
+  padding: 0px 5px;
+  color: var(--bg-dark);
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 100px;
+}
+
+.select_date {
+  width: 80%;
+  font-size: 1rem;
+  padding: 10px 15px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 10px;
+}
+
+.actions_btn {
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+  justify-content: space-between;
+  margin: 25px;
+}
+
+.btn_success {
+  background: var(--clr);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  color: var(--bg-light);
+  font-weight: bold;
+}
+
+.btn_remove {
+  background: red;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  color: var(--bg-light);
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .details {
+    width: 80%;
+  }
+}
