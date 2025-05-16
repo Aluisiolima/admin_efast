@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./Login.css";
 import { Auth } from "../../utils/Auth";
 import { LoginType } from "../../types/Login.type";
-import { Empresa } from "../../types/Empresa.type";
+import { EmpresaType } from "../../types/Empresa.type";
 import { fetchApi } from "../../utils/req";
 
-export const Login: React.FC<{ isLogin: (is: boolean) => void }> = ({
-  isLogin,
-}) => {
-  const [empresas, setEmpresas] = useState<Empresa[] | null>(null);
+export const Login: React.FC<{
+  isLogin: (is: boolean) => void;
+  setData: (data: LoginType) => void;
+}> = ({ isLogin, setData }) => {
+  const [empresas, setEmpresas] = useState<EmpresaType[] | null>(null);
   const [loginData, setLoginData] = useState<LoginType>({
     nome: "",
     senha: "",
@@ -29,13 +30,14 @@ export const Login: React.FC<{ isLogin: (is: boolean) => void }> = ({
 
   const login = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    setData(loginData);
     await Auth(loginData, isLogin);
   };
 
   useEffect(() => {
     const getEmpresas = async () => {
       try {
-        const result = await fetchApi<Empresa[]>(null, "GET", "/empresa");
+        const result = await fetchApi<EmpresaType[]>(null, "GET", "/empresa");
         setEmpresas(result);
       } catch (error) {
         console.error(error);

@@ -1,0 +1,30 @@
+.cards_produto {
+  margin: 0 auto;
+  margin-top: 10px;
+  height: 15em;
+  width: 12em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  background-color: var(--bg-dark);
+  color: var(--bg-light);
+  border-radius: 15px;
+}
+
+.btn_insert {
+  height: 1.5em;
+  width: 1.5em;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  border-radius: 50%;
+  background: var(--clr);
+  color: var(--bg-light);
+  font-weight: bolder;
+  font-size: xxx-large;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

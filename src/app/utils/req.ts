@@ -18,7 +18,7 @@ export async function fetchApi<T>(
   data: any | null,
   method: string,
   url: string,
-): Promise<T | null> {
+): Promise<T> {
   try {
     const token = sessionStorage.getItem("token");
 
@@ -46,8 +46,7 @@ export async function fetchApi<T>(
     const result: ResponseApi<T> = await response.json();
 
     if (result.error) {
-      console.log(result.message);
-      return null;
+      console.log(result.error);
     }
 
     if (response.status === 401) {
