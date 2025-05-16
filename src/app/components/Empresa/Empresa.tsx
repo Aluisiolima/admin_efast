@@ -18,7 +18,7 @@ export const Empresa: React.FC<EmpresaPros> = ({ data, stade }) => {
 
   const forms: Record<string, ReactNode> = {
     default: <></>,
-    addFrete: <AddFrete exit={() => setForm("default")}/>,
+    addFrete: <AddFrete exit={() => setForm("default")} />,
     updateEmpresa: (
       <UpdateEmpresa
         data={data}
