@@ -22,7 +22,7 @@ export const VendasDay: React.FC = () => {
       };
       getVendas();
 
-      const timer = setInterval(getVendas, 10000);
+      const timer = setInterval(getVendas, 30000);
 
       return () => clearTimeout(timer);
     } catch (error) {
