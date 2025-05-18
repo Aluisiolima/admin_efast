@@ -16,7 +16,7 @@ import { Arquivos } from "../Arquivos/Arquivos";
 import { Arquivo } from "../../types/Arquivo.type";
 import { ContainerDesktop } from "./ContainerDesktop";
 import { ContainerMobile } from "./ContainerMobile";
-import {} from "../../asset"
+import {} from "../../asset";
 
 export const Container: React.FC<{ dataUser: LoginType }> = ({ dataUser }) => {
   useJWTToken(dataUser);
