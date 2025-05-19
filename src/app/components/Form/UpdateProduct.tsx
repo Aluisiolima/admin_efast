@@ -45,7 +45,7 @@ export const UpdateProduto: React.FC<UpdateProdutoPros> = ({
   }, []);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setDateUpdate((prev) => ({
@@ -167,6 +167,22 @@ export const UpdateProduto: React.FC<UpdateProdutoPros> = ({
       ) : (
         <></>
       )}
+      <div className="text_area">
+        <label htmlFor="descricao" className="label">descricao do produto:</label>
+      <textarea
+      className="text-area"
+            maxLength={250}
+            style={{
+              width: "100%",
+              height: "100px",
+              fontSize: "1rem",
+              padding: "10px"
+            }}
+            name="descricao"
+            value={dateUpdate.descricao ?? ""}
+            onChange={(e) => handleChange(e)}
+          />
+      </div>
       <div className="actions_btn">
         <button
           className="btn_remove"
