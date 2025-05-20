@@ -49,6 +49,7 @@ export const DetalhesVendas: React.FC<DetalhesVendasPros> = ({
           <li className="sale_details">Mesa : {data.mesa}</li>
           <li className="sale_details">Data : {data.data_pedido}</li>
           <li className="sale_details">Status : {data.status}</li>
+          <li className="sale_details">Frete : {data.t_frete ?? 0}</li>
         </ul>
       </div>
       <div className="details_sale">

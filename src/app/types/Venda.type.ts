@@ -10,4 +10,5 @@ export type Venda = {
   status: "entregue" | "pendente" | "cancelado";
   produtos: (Produto & { quantidade: number })[];
   valor_total: number;
+  t_frete: null | number;
 };
