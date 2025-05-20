@@ -54,14 +54,14 @@ code {
   grid-auto-rows: max-content;
 }
 ._div2 {
-  position: relative;
-  overflow: hidden;
-  overflow-y: auto;
   display: grid;
-  min-height: 90vh;
+  max-height: 90vh;
   width: 100%;
   grid-template-columns: 1fr 1fr;
   grid-auto-rows: max-content;
+  position: relative;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .error {
