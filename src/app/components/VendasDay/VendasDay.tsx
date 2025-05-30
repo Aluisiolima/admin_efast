@@ -7,7 +7,6 @@ export const VendasDay: React.FC = () => {
   const [vendas, setVendas] = useState<Venda[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [detalhes, setDetalhes] = useState<Venda | null>(null);
-  const [stade, setStade] = useState<number>(0);
   const ultimoIdVenda = useRef<number | null>(null);
 
   useEffect(() => {
@@ -29,7 +28,16 @@ export const VendasDay: React.FC = () => {
       console.log(error);
       setVendas([]);
     }
-  }, [stade]);
+  }, []);
+
+  async function modificarVenda(
+    id: number,
+    status: "pendente" | "entregue" | "cancelado",
+  ) {
+    const venda = vendas.find((v) => v.id === id);
+    if (!venda) return;
+    venda.status = status;
+  }
 
   if (!vendas) {
     return <>Carregando...</>;
@@ -72,7 +80,7 @@ export const VendasDay: React.FC = () => {
           <DetalhesVendas
             data={detalhes as Venda}
             exit={setIsOpen}
-            stade={() => setStade(stade + 1)}
+            stade={() => modificarVenda(detalhes?.id || 0, "entregue")}
           />
         ) : (
           <></>

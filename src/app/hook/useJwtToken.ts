@@ -1,6 +1,5 @@
 // hooks/useJWTToken.ts
 import { useEffect, useState, useRef, useCallback } from "react";
-import { LoginType } from "../types/Login.type";
 import { fetchApi } from "../utils/req";
 
 /**
@@ -34,20 +33,20 @@ export function decodeJWT(token: string): JWTPayload | null {
  * Hook para gerenciar um token JWT com renovação automática.
  * @param DateUser - dados do usuário.
  */
-export function useJWTToken(DateUser: LoginType): void {
+export function useJWTToken(): void {
   const [, setToken] = useState<string | null>(null);
   const refreshTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const fetchAndSetToken = useCallback(async () => {
     try {
       const newToken = await fetchApi<{ token: string }>(
-        DateUser,
+        null,
         "POST",
-        "/login",
+        "/login/refresh",
       );
       if (newToken?.token) {
         setToken(newToken.token);
-        sessionStorage.setItem("token", newToken.token);
+        localStorage.setItem("token", newToken.token);
         const decoded = decodeJWT(newToken.token);
         if (decoded?.exp) {
           const expiresAt = decoded.exp * 1000;
@@ -63,15 +62,13 @@ export function useJWTToken(DateUser: LoginType): void {
     } catch (error) {
       console.error("Erro ao obter token JWT:", error);
     }
-  }, [DateUser]);
+  }, []);
 
   useEffect(() => {
-    if (!DateUser) return;
-
     fetchAndSetToken();
 
     return () => {
       if (refreshTimeout.current) clearTimeout(refreshTimeout.current);
     };
-  }, [fetchAndSetToken, DateUser]);
+  }, [fetchAndSetToken]);
 }

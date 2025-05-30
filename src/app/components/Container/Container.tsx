@@ -1,6 +1,5 @@
 import { JSX, useEffect, useState } from "react";
 import { decodeJWT, useJWTToken } from "../../hook/useJwtToken";
-import { LoginType } from "../../types/Login.type";
 import "./Container.css";
 import { Produtos } from "../Produtos/Produtos";
 import { fetchApi } from "../../utils/req";
@@ -18,8 +17,8 @@ import { ContainerDesktop } from "./ContainerDesktop";
 import { ContainerMobile } from "./ContainerMobile";
 import {} from "../../asset";
 
-export const Container: React.FC<{ dataUser: LoginType }> = ({ dataUser }) => {
-  useJWTToken(dataUser);
+export const Container: React.FC = () => {
+  useJWTToken();
   const [ehMobile, setEhMobile] = useState(window.innerWidth <= 768);
   const [component, setComponent] = useState<string>("user");
   const [produtos, setProdutos] = useState<Produto[] | null>(null);
@@ -54,7 +53,7 @@ export const Container: React.FC<{ dataUser: LoginType }> = ({ dataUser }) => {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const token = decodeJWT(sessionStorage.getItem("token") || "");
+        const token = decodeJWT(localStorage.getItem("token") || "");
 
         const [produtos, users, empresa, vendas, arquivos] = await Promise.all([
           fetchApi<Produto[]>(

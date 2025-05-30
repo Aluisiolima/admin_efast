@@ -20,7 +20,7 @@ export async function fetchApi<T>(
   url: string,
 ): Promise<T> {
   try {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
     const headers: Record<string, string> = {
       "Content-Type": "application/json",

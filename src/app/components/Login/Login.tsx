@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Login.css";
-import { Auth } from "../../utils/Auth";
 import { LoginType } from "../../types/Login.type";
 import { EmpresaType } from "../../types/Empresa.type";
 import { fetchApi } from "../../utils/req";
 
 export const Login: React.FC<{
   isLogin: (is: boolean) => void;
-  setData: (data: LoginType) => void;
-}> = ({ isLogin, setData }) => {
+}> = ({ isLogin }) => {
   const [empresas, setEmpresas] = useState<EmpresaType[] | null>(null);
   const [loginData, setLoginData] = useState<LoginType>({
     nome: "",
@@ -30,8 +28,18 @@ export const Login: React.FC<{
 
   const login = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    setData(loginData);
-    await Auth(loginData, isLogin);
+    const result = await fetchApi<{ token: string }>(
+      loginData,
+      "POST",
+      "/login",
+    );
+    if (result?.token) {
+      localStorage.setItem("token", result.token);
+      isLogin(true);
+      return;
+    }
+    console.error("Login falhou");
+    isLogin(false);
   };
 
   useEffect(() => {
