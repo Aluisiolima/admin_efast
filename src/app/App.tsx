@@ -17,13 +17,16 @@ export const App: React.FC = () => {
       }
 
       try {
-        const response = await fetch(`${process.env.REACT_APP_LINK_API}/login/refresh`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
+        const response = await fetch(
+          `${process.env.REACT_APP_LINK_API}/login/refresh`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
 
         const data = await response.json();
 
@@ -51,11 +54,7 @@ export const App: React.FC = () => {
 
   return (
     <div className="container" id="container">
-      {!isLoggedIn ? (
-        <Login isLogin={setIsLoggedIn} />
-      ) : (
-        <Container />
-      )}
+      {!isLoggedIn ? <Login isLogin={setIsLoggedIn} /> : <Container />}
     </div>
   );
 };

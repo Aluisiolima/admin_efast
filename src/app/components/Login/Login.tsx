@@ -28,12 +28,16 @@ export const Login: React.FC<{
 
   const login = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const result = await fetchApi<{ token: string }>(loginData, "POST", "/login");
+    const result = await fetchApi<{ token: string }>(
+      loginData,
+      "POST",
+      "/login",
+    );
     if (result?.token) {
       localStorage.setItem("token", result.token);
       isLogin(true);
       return;
-    } 
+    }
     console.error("Login falhou");
     isLogin(false);
   };
