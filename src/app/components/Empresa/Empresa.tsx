@@ -4,16 +4,30 @@ import "./Empresa.css";
 import { ReactNode, useState } from "react";
 import { UpdateEmpresa } from "../Form/UpdateEmpresa";
 import { AddFrete } from "../Form/AddFrete";
+import { fetchApi } from "../../utils/req";
+import { useDados } from "../../hook/useDados";
+import { decodeJWT } from "../../hook/useJwtToken";
 
-interface EmpresaPros {
-  data: EmpresaType | null;
-  stade: (e: EmpresaType) => void;
-}
-export const Empresa: React.FC<EmpresaPros> = ({ data, stade }) => {
+export const Empresa: React.FC = () => {
+  const token = decodeJWT(localStorage.getItem("token") || "");
   const [form, setForm] = useState<string>("default");
+  const { data, isLoading, error, refetch } = useDados<EmpresaType>({
+    nameDate: "empresa",
+    queryFn: async () => {
+      return await fetchApi<EmpresaType>(
+        null,
+        "GET",
+        `/empresa/${token?.id_empresa}`,
+      );
+    },
+  });
 
-  if (!data) {
+  if (isLoading) {
     return <>Carregando...</>;
+  }
+
+  if (error) {
+    return <>Erro ao carregar empresa</>;
   }
 
   const forms: Record<string, ReactNode> = {
@@ -21,9 +35,9 @@ export const Empresa: React.FC<EmpresaPros> = ({ data, stade }) => {
     addFrete: <AddFrete exit={() => setForm("default")} />,
     updateEmpresa: (
       <UpdateEmpresa
-        data={data}
+        data={data as EmpresaType}
         exit={() => setForm("default")}
-        success={stade}
+        success={refetch}
       />
     ),
   };
@@ -40,7 +54,7 @@ export const Empresa: React.FC<EmpresaPros> = ({ data, stade }) => {
     const urlTemporaria = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = urlTemporaria;
-    a.download = `qrcode_${data.nome_empresa}.png`; // Nome do arquivo que será baixado
+    a.download = `qrcode_${data?.nome_empresa}.png`; // Nome do arquivo que será baixado
     a.click();
   };
 
@@ -48,13 +62,13 @@ export const Empresa: React.FC<EmpresaPros> = ({ data, stade }) => {
     <>
       <div className="bussiness">
         <img
-          src={data.path}
+          src={process.env.REACT_APP_LINK_IMG + (data?.path as string)}
           alt="logo"
           onError={(e) => {
             (e.target as HTMLImageElement).src = logo;
           }}
         />
-        <p>{data.nome_empresa}</p>
+        <p>{data?.nome_empresa}</p>
         <button
           className="btns_bussiness"
           onClick={() => setForm("updateEmpresa")}

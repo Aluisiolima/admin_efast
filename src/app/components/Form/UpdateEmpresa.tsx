@@ -2,11 +2,12 @@ import { useState } from "react";
 import { EmpresaUpdate, EmpresaType } from "../../types/Empresa.type";
 import "./Form.css";
 import { fetchApi } from "../../utils/req";
+import { UploadImagem } from "./UploadImagem";
 
 interface UpdateEmpresaPros {
   data: EmpresaType;
   exit: () => void;
-  success: (e: EmpresaType) => void;
+  success: () => void;
 }
 
 export const UpdateEmpresa: React.FC<UpdateEmpresaPros> = ({
@@ -14,6 +15,7 @@ export const UpdateEmpresa: React.FC<UpdateEmpresaPros> = ({
   exit,
   success,
 }) => {
+  const [openImg, setOpenImg] = useState<boolean>(false);
   const [dateUpdate, setDateUpdate] = useState<EmpresaUpdate>({
     id: data.id_empresa,
     nome: data.nome_empresa,
@@ -22,7 +24,7 @@ export const UpdateEmpresa: React.FC<UpdateEmpresaPros> = ({
     facebook: data.facebook,
     instagram: data.instagram,
     whatsapp: data.whatsapp,
-    id_img: 1,
+    logo: data.logo_img,
   });
 
   const handleChange = (
@@ -39,12 +41,8 @@ export const UpdateEmpresa: React.FC<UpdateEmpresaPros> = ({
     try {
       e.preventDefault();
       await fetchApi<{ message: string }>(dateUpdate, "PUT", "/empresa/update");
-      const resultNew = await fetchApi<EmpresaType>(
-        null,
-        "GET",
-        `/empresa/${dateUpdate.id}`,
-      );
-      success(resultNew);
+
+      success();
       exit();
     } catch (error) {
       console.error(error);
@@ -120,9 +118,29 @@ export const UpdateEmpresa: React.FC<UpdateEmpresaPros> = ({
         <label htmlFor="facebook">facebook</label>
       </div>
       <div className="actions_btn">
+        <button
+          type="button"
+          className="btn_success"
+          onClick={() => setOpenImg(true)}
+          style={{ marginTop: "10px" }}
+        >
+          Altera Imagem
+        </button>
         <button className="btn_success" onClick={(e) => updateEmpresa(e)}>
           Ok
         </button>
+      </div>
+      <div className="other" id="other">
+        {openImg ? (
+          <UploadImagem
+            exit={() => setOpenImg(false)}
+            setIdImage={(id: number) => {
+              setDateUpdate((prev) => ({ ...prev, logo: id }));
+            }}
+          />
+        ) : (
+          <></>
+        )}
       </div>
     </form>
   );

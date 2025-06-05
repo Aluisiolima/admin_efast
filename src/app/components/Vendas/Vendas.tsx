@@ -2,17 +2,30 @@ import { useState } from "react";
 import { Venda } from "../../types/Venda.type";
 import "./Vendas.css";
 import { DetalhesVendas } from "../DetalhesVendas/DetalhesVendas";
+import { useDados } from "../../hook/useDados";
+import { fetchApi } from "../../utils/req";
 
-interface VendasPros {
-  data: Venda[] | null;
-  stade: (v: Venda[]) => void;
-}
-export const Vendas: React.FC<VendasPros> = ({ data, stade }) => {
+export const Vendas: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [detalhes, setDetalhes] = useState<Venda | null>(null);
+  const { data, isLoading, error, refetch } = useDados<Venda[]>({
+    nameDate: "vendas",
+    queryFn: async () => {
+      return await fetchApi<Venda[]>(null, "POST", "/venda/");
+    },
+  });
 
-  if (!data) {
+  if (isLoading) {
     return <>Carragando...</>;
+  }
+
+  if (error) {
+    return (
+      <div>
+        Erro ao carregar vendas, espere um pouco ja estamos resolvendo o
+        problema
+      </div>
+    );
   }
 
   const icons = {
@@ -22,7 +35,7 @@ export const Vendas: React.FC<VendasPros> = ({ data, stade }) => {
   };
 
   const mostrarDetalhes = (data_pedido: string) => {
-    const venda = data.find((v) => v.data_pedido === data_pedido);
+    const venda = data?.find((v) => v.data_pedido === data_pedido);
     setDetalhes(venda ?? null);
     setIsOpen(true);
   };
@@ -30,7 +43,7 @@ export const Vendas: React.FC<VendasPros> = ({ data, stade }) => {
   return (
     <>
       <div className="_div2">
-        {data.map((venda, index) => {
+        {data?.map((venda, index) => {
           return (
             <div
               className="cards_venda"
@@ -53,7 +66,7 @@ export const Vendas: React.FC<VendasPros> = ({ data, stade }) => {
           <DetalhesVendas
             data={detalhes as Venda}
             exit={setIsOpen}
-            stade={stade}
+            stade={refetch}
           />
         ) : (
           <></>

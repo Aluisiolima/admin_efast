@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { Produto, TypeProdutos, UpdateProduct } from "../../types/Produto.type";
 import { fetchApi } from "../../utils/req";
 import { decodeJWT } from "../../hook/useJwtToken";
+import { ImageError } from "../../utils/ImageErro";
+import { UploadImagem } from "./UploadImagem";
 
 interface UpdateProdutoPros {
   exit: () => void;
   data: Produto;
-  success: (p: Produto[]) => void;
+  success: () => void;
 }
 
 export const UpdateProduto: React.FC<UpdateProdutoPros> = ({
@@ -15,8 +17,8 @@ export const UpdateProduto: React.FC<UpdateProdutoPros> = ({
   success,
 }) => {
   const [notType, setNotType] = useState<boolean>(false);
-  const token = decodeJWT(sessionStorage.getItem("token") || "");
   const [types, setTypes] = useState<TypeProdutos[] | null>(null);
+  const [openImg, setOpenImg] = useState<boolean>(false);
   const [dateUpdate, setDateUpdate] = useState<UpdateProduct>({
     id: data.id_produto,
     desconto: data.desconto,
@@ -24,10 +26,12 @@ export const UpdateProduto: React.FC<UpdateProdutoPros> = ({
     nome: data.nome_produto,
     tipo: data.tipo,
     valor: data.valor,
+    path: data.path,
+    id_img: data.id_img,
   });
 
   useEffect(() => {
-    const token = decodeJWT(sessionStorage.getItem("token") || "");
+    const token = decodeJWT(localStorage.getItem("token") || "");
     const getTypes = async () => {
       try {
         const result = await fetchApi<TypeProdutos[]>(
@@ -60,12 +64,8 @@ export const UpdateProduto: React.FC<UpdateProdutoPros> = ({
     try {
       e.preventDefault();
       await fetchApi<{ message: string }>(dateUpdate, "PUT", "/produto/update");
-      const resultNew = await fetchApi<Produto[]>(
-        null,
-        "GET",
-        `/produto/empresa/${token?.id_empresa}`,
-      );
-      success(resultNew);
+
+      success();
       exit();
     } catch (error) {
       console.error(error);
@@ -80,12 +80,8 @@ export const UpdateProduto: React.FC<UpdateProdutoPros> = ({
       "DELETE",
       `/produto/desativa/${id}`,
     );
-    const resultNew = await fetchApi<Produto[]>(
-      null,
-      "GET",
-      `/produto/empresa/${token?.id_empresa}`,
-    );
-    success(resultNew);
+
+    success();
     exit();
   };
 
@@ -187,6 +183,33 @@ export const UpdateProduto: React.FC<UpdateProdutoPros> = ({
           onChange={(e) => handleChange(e)}
         />
       </div>
+      <div className="input-field" id="otherType">
+        <div
+          style={{
+            margin: "20px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}
+        >
+          <img
+            src={process.env.REACT_APP_LINK_IMG + (data?.path as string)}
+            alt="Preview"
+            width="150"
+            onError={(e) => ImageError(data.tipo, e)}
+          />
+
+          <button
+            type="button"
+            className="btn_success"
+            onClick={() => setOpenImg(true)}
+            style={{ marginTop: "10px" }}
+          >
+            Altera Imagem
+          </button>
+        </div>
+      </div>
       <div className="actions_btn">
         <button
           className="btn_remove"
@@ -197,6 +220,19 @@ export const UpdateProduto: React.FC<UpdateProdutoPros> = ({
         <button className="btn_success" onClick={(e) => updateProduto(e)}>
           Ok
         </button>
+      </div>
+      <div className="other" id="other">
+        {openImg ? (
+          <UploadImagem
+            exit={() => setOpenImg(false)}
+            setIdImage={(id: number) => {
+              setDateUpdate((prev) => ({ ...prev, id_img: id }));
+            }}
+            isProduct={true}
+          />
+        ) : (
+          <></>
+        )}
       </div>
     </form>
   );

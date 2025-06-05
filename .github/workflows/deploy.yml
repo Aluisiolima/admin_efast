@@ -19,6 +19,7 @@ jobs:
       - name: Criar .env com variáveis
         run: |
           echo "REACT_APP_LINK_API=${{ secrets.URL_API }}" >> .env
+          echo "REACT_APP_LINK_IMG=https://efastmenu.com/" >> .env
 
       - name: Tests de aplicação
         run: yarn test --watchAll=false 
