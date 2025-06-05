@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
-import { NewProduto, Produto, TypeProdutos } from "../../types/Produto.type";
+import { NewProduto, TypeProdutos } from "../../types/Produto.type";
 import "./Form.css";
 import { decodeJWT } from "../../hook/useJwtToken";
 import { fetchApi } from "../../utils/req";
+import { UploadImagem } from "./UploadImagem";
 
 interface NewProductPros {
   exit: () => void;
-  success: (p: Produto[]) => void;
+  success: () => void;
 }
 
 export const NewProduct: React.FC<NewProductPros> = ({ exit, success }) => {
   const [notType, setNotType] = useState<boolean>(false);
   const [types, setTypes] = useState<TypeProdutos[] | null>(null);
-  const token = decodeJWT(sessionStorage.getItem("token") || "");
+  const [openImg, setOpenImg] = useState<boolean>(false);
   const [dateNewProduto, setDateNewProduto] = useState<NewProduto>({
     desconto: 0,
     descricao: null,
@@ -23,7 +24,7 @@ export const NewProduct: React.FC<NewProductPros> = ({ exit, success }) => {
   });
 
   useEffect(() => {
-    const token = decodeJWT(sessionStorage.getItem("token") || "");
+    const token = decodeJWT(localStorage.getItem("token") || "");
     const getTypes = async () => {
       try {
         const result = await fetchApi<TypeProdutos[]>(
@@ -60,12 +61,8 @@ export const NewProduct: React.FC<NewProductPros> = ({ exit, success }) => {
         "POST",
         "/produto/inseri",
       );
-      const resultNew = await fetchApi<Produto[]>(
-        null,
-        "GET",
-        `/produto/empresa/${token?.id_empresa}`,
-      );
-      success(resultNew);
+
+      success();
       exit();
     } catch (error) {
       console.error(error);
@@ -170,10 +167,31 @@ export const NewProduct: React.FC<NewProductPros> = ({ exit, success }) => {
           onChange={(e) => handleChange(e)}
         />
       </div>
+      <div className="input-field">
+        <button
+          type="button"
+          className="btn_success"
+          onClick={() => setOpenImg(true)}
+        >
+          Enviar Imagem
+        </button>
+      </div>
       <div className="actions_btn">
         <button className="btn_success" onClick={(e) => newProduto(e)}>
           Ok
         </button>
+      </div>
+      <div className="other" id="other">
+        {openImg ? (
+          <UploadImagem
+            exit={() => setOpenImg(false)}
+            setIdImage={(id) =>
+              setDateNewProduto((prev) => ({ ...prev, id_img: id }))
+            }
+          />
+        ) : (
+          <></>
+        )}
       </div>
     </form>
   );

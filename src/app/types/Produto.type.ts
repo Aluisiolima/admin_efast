@@ -7,6 +7,7 @@ export type Produto = {
   valor: number;
   path: string;
   tipo: string;
+  id_img: number;
 };
 
 export type TypeProdutos = {
@@ -20,6 +21,8 @@ export type UpdateProduct = {
   desconto?: number;
   valor?: number;
   tipo?: string;
+  id_img?: number;
+  path?: string;
 };
 
 export type NewProduto = {

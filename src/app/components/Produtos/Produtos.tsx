@@ -5,18 +5,39 @@ import { ReactNode, useState } from "react";
 import { NewProduct } from "../Form/NewProduct";
 import { fetchApi } from "../../utils/req";
 import { UpdateProduto } from "../Form/UpdateProduct";
+import { useDados } from "../../hook/useDados";
+import { decodeJWT } from "../../hook/useJwtToken";
 
 interface ProdutosPros {
-  data: Produto[] | null;
   ehMobile: boolean;
-  stade: (p: Produto[]) => void;
 }
-export const Produtos: React.FC<ProdutosPros> = ({ data, ehMobile, stade }) => {
+
+export const Produtos: React.FC<ProdutosPros> = ({ ehMobile }) => {
+  const token = decodeJWT(localStorage.getItem("token") || "");
   const [form, setForm] = useState<string>("default");
   const [produto, setProduto] = useState<Produto | null>(null);
+  const { data, isLoading, error, refetch } = useDados<Produto[]>({
+    nameDate: "produtos",
+    queryFn: async () => {
+      return await fetchApi<Produto[]>(
+        null,
+        "GET",
+        `/produto/empresa/${token?.id_empresa}`,
+      );
+    },
+  });
 
-  if (!data) {
+  if (isLoading) {
     return <div>Carregando...</div>;
+  }
+
+  if (error) {
+    return (
+      <div>
+        Erro ao carregar produtos espere um pouco ja estamos resolvendo o
+        problema
+      </div>
+    );
   }
 
   const exit = () => {
@@ -35,16 +56,16 @@ export const Produtos: React.FC<ProdutosPros> = ({ data, ehMobile, stade }) => {
 
   const forms: Record<string, ReactNode> = {
     default: <></>,
-    newProduct: <NewProduct exit={exit} success={stade} />,
+    newProduct: <NewProduct exit={exit} success={refetch} />,
     updateProduto: (
-      <UpdateProduto data={produto as Produto} exit={exit} success={stade} />
+      <UpdateProduto data={produto as Produto} exit={exit} success={refetch} />
     ),
   };
 
   return (
     <>
       <div className={"_div" + (ehMobile ? "_mobile" : "")} id="cards">
-        {data.map((produto) => {
+        {data?.map((produto) => {
           return (
             <div
               className="cards_produto"
@@ -52,7 +73,7 @@ export const Produtos: React.FC<ProdutosPros> = ({ data, ehMobile, stade }) => {
               onClick={() => update(produto.id_produto)}
             >
               <img
-                src={produto.path}
+                src={process.env.REACT_APP_LINK_IMG + produto.path}
                 alt="imagem_user"
                 className="img_user"
                 onError={(e) => ImageError(produto.tipo, e)}

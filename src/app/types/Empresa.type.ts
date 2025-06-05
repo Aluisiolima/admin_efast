@@ -7,6 +7,7 @@ export type EmpresaType = {
   endereco: string;
   email: string | null;
   path: string;
+  logo_img: number;
 };
 
 export type EmpresaUpdate = {
@@ -17,5 +18,5 @@ export type EmpresaUpdate = {
   facebook?: string | null;
   endereco?: string;
   email?: string | null;
-  id_img: number;
+  logo?: number;
 };

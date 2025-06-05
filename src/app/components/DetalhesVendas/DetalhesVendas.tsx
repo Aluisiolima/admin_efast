@@ -4,7 +4,7 @@ import { fetchApi } from "../../utils/req";
 interface DetalhesVendasPros {
   data: Venda;
   exit: (is: boolean) => void;
-  stade: (v: Venda[]) => void;
+  stade: () => void;
 }
 
 export const DetalhesVendas: React.FC<DetalhesVendasPros> = ({
@@ -19,8 +19,8 @@ export const DetalhesVendas: React.FC<DetalhesVendasPros> = ({
         "POST",
         `/pedido/status/${id}`,
       );
-      const resultNew = await fetchApi<Venda[]>(null, "POST", `/venda/`);
-      stade(resultNew);
+
+      stade();
       exit(false);
     } catch (error) {
       console.error(error);

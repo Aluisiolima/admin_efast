@@ -18,13 +18,16 @@ export async function fetchApi<T>(
   data: any | null,
   method: string,
   url: string,
+  isJson: boolean = true,
 ): Promise<T> {
   try {
     const token = localStorage.getItem("token");
 
-    const headers: Record<string, string> = {
-      "Content-Type": "application/json",
-    };
+    const headers: Record<string, string> = {};
+
+    if (isJson) {
+      headers["Content-Type"] = "application/json";
+    }
 
     if (token) {
       headers.Authorization = `Bearer ${token}`;
@@ -36,7 +39,7 @@ export async function fetchApi<T>(
     };
 
     if (data) {
-      options.body = JSON.stringify(data);
+      options.body = isJson ? JSON.stringify(data) : data;
     }
 
     const apiKey = process.env.REACT_APP_LINK_API;
