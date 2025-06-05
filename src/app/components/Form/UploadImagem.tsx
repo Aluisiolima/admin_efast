@@ -85,7 +85,6 @@ export const UploadImagem: React.FC<UploadImagemProps> = ({
           <input
             type="file"
             accept="image/*"
-            capture="environment"
             onChange={handleImagem}
             required
           />
