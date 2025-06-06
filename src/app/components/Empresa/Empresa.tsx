@@ -46,7 +46,7 @@ export const Empresa: React.FC = () => {
     const imagem = await fetch(`${process.env.REACT_APP_LINK_API}/qrcode`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
 
