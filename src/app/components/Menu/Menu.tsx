@@ -2,7 +2,6 @@ export const Menu: React.FC<{
   onTroca: (on: string) => void;
   ehMobile: boolean;
 }> = ({ onTroca, ehMobile }) => {
-
   const onSair = () => {
     localStorage.removeItem("token");
     window.location.href = "/";
