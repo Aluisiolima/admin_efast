@@ -92,7 +92,7 @@ export const UploadImagem: React.FC<UploadImagemProps> = ({
 
         {preview && (
           <div style={{ margin: "20px" }}>
-            <img src={preview} alt="Preview" width="300" />
+            <img src={preview} alt="Preview" width="150" />
           </div>
         )}
 

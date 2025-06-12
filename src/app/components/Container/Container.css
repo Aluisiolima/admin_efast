@@ -59,3 +59,13 @@
   background-color: var(--clr);
   width: 95%;
 }
+
+.options_sair {
+  border: 2px solid var(--bg-light);
+}
+
+.options_sair:hover {
+  background-color: red;
+  color: var(--bg-light);
+  width: 95%;
+}
