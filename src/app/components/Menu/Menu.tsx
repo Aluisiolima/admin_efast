@@ -2,6 +2,12 @@ export const Menu: React.FC<{
   onTroca: (on: string) => void;
   ehMobile: boolean;
 }> = ({ onTroca, ehMobile }) => {
+
+  const onSair = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  };
+
   return (
     <>
       <div className={"menu" + (ehMobile ? "_mobile" : "")}>
@@ -27,6 +33,12 @@ export const Menu: React.FC<{
         ) : (
           ""
         )}
+
+        <div>
+          <div className="options options_sair" onClick={onSair}>
+            Sair
+          </div>
+        </div>
       </div>
     </>
   );

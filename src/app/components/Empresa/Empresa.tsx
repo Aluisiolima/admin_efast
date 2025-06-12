@@ -68,7 +68,7 @@ export const Empresa: React.FC = () => {
             (e.target as HTMLImageElement).src = logo;
           }}
         />
-        <p>{data?.nome_empresa}</p>
+        <p className="name_empresa">{data?.nome_empresa}</p>
         <button
           className="btns_bussiness"
           onClick={() => setForm("updateEmpresa")}
