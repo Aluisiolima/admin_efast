@@ -49,6 +49,14 @@ export const DetalhesVendas: React.FC<DetalhesVendasPros> = ({
           <li className="sale_details">Mesa : {data.mesa}</li>
           <li className="sale_details">Data : {data.data_pedido}</li>
           <li className="sale_details">Status : {data.status}</li>
+          {data.contato && (
+            <li className="sale_details">
+              Contato :{" "}
+              <a href={`https://api.whatsapp.com/send/?phone=${data.contato}`}>
+                {data.contato}
+              </a>
+            </li>
+          )}
           <li className="sale_details">Frete : {data.t_frete ?? 0}</li>
         </ul>
       </div>
