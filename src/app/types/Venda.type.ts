@@ -8,6 +8,7 @@ export type Venda = {
   mesa: string;
   data_pedido: string;
   status: "entregue" | "pendente" | "cancelado";
+  contato: string | null;
   produtos: (Produto & { quantidade: number })[];
   valor_total: number;
   t_frete: null | number;
