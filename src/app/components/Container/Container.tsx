@@ -10,6 +10,7 @@ import { Arquivos } from "../Arquivos/Arquivos";
 import { ContainerDesktop } from "./ContainerDesktop";
 import { ContainerMobile } from "./ContainerMobile";
 import {} from "../../asset";
+import { ProdutosDesativados } from "../Produtos/ProdutosDesativados";
 
 export const Container: React.FC = () => {
   useJWTToken();
@@ -18,6 +19,7 @@ export const Container: React.FC = () => {
 
   const components: Record<string, JSX.Element> = {
     produtos: <Produtos ehMobile={ehMobile} />,
+    produtosDesativados: <ProdutosDesativados ehMobile={ehMobile} />,
     vendas: <Vendas />,
     vendasDay: <VendasDay />,
     arquivos: <Arquivos ehMobile={ehMobile} />,

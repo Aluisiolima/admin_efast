@@ -13,6 +13,9 @@ export const Menu: React.FC<{
         <div className="options" onClick={() => onTroca("produtos")}>
           Produtos
         </div>
+        <div className="options" onClick={() => onTroca("produtosDesativados")}>
+          Produtos Desativados
+        </div>
         <div className="options" onClick={() => onTroca("vendasDay")}>
           Vendas de Hoje
         </div>
