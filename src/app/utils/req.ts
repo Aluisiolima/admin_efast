@@ -80,7 +80,8 @@ interface Log {
 
 function log(data: Log): void {
   const { method, uri, startTime, status } = data;
-  const discordWebhookUrl: string = process.env.REACT_APP_DISCORD_WEBHOOK_URL || '';
+  const discordWebhookUrl: string =
+    process.env.REACT_APP_DISCORD_WEBHOOK_URL || "";
 
   let color = 0x2ecc71;
 
@@ -91,30 +92,30 @@ function log(data: Log): void {
   }
 
   const payload = {
-    username: 'Admin Efast logs',
-    avatar_url: 'https://example.com/avatar.png',
+    username: "Admin Efast logs",
+    avatar_url: "https://example.com/avatar.png",
     embeds: [
       {
         color: color,
         timestamp: new Date().toISOString(),
         fields: [
           {
-            name: '🔀 Método',
+            name: "🔀 Método",
             value: method,
             inline: true,
           },
           {
-            name: '📁 URI',
+            name: "📁 URI",
             value: uri,
             inline: true,
           },
           {
-            name: '📟 Status',
+            name: "📟 Status",
             value: String(status),
             inline: true,
           },
           {
-            name: '⏱️ Tempo de execução',
+            name: "⏱️ Tempo de execução",
             value: `${((Date.now() - startTime) / 1000).toFixed(3)} ms`,
             inline: true,
           },
@@ -124,16 +125,16 @@ function log(data: Log): void {
   };
 
   fetch(discordWebhookUrl, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(payload),
   })
     .then(() => {
-      console.log('Log enviado com sucesso');
+      console.log("Log enviado com sucesso");
     })
     .catch((error) => {
-      console.error('Erro ao enviar log:', error);
+      console.error("Erro ao enviar log:", error);
     });
 }
