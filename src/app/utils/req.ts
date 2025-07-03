@@ -21,7 +21,6 @@ export async function fetchApi<T>(
   isJson: boolean = true,
 ): Promise<T> {
   try {
-    const startTime = Date.now();
     const token = localStorage.getItem("token");
 
     const headers: Record<string, string> = {};
